@@ -1,8 +1,7 @@
-
-public class MySparseMatrix_A2 {
+public class MySparseMatrix_DS2 {
     private double[][] A;
 
-    public MySparseMatrix_A2(double[][] A) {
+    public MySparseMatrix_DS2(double[][] A) {
         this.A = A;
     }
     public void solveWithPivot(double[] B)
