@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
         int n = 3;
-        MySparseMatrix matrix = new MySparseMatrix(n, n);
+        MySparseMatrix matrix = new MySparseMatrix(n);
         double[] b = new double[n];
 
         matrix.set(0, 0, 1);
