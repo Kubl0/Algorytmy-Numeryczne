@@ -1,3 +1,4 @@
+
 public class MySparseMatrix_A2 {
     private double[][] A;
 
@@ -17,24 +18,51 @@ public class MySparseMatrix_A2 {
                 double[] temp = A[k];
                 A[k] = A[max];
                 A[max] = temp;
+                double t = B[k];
+                B[k] = B[max];
+                B[max] = t;
 
                 for (int i = k + 1; i < N; i++) {
                     double factor = A[i][k] / A[k][k];
                     A[i][k] = 0;
-                    for (int j = k; j < N; j++)
+                    B[i] -= factor * B[k];
+                    for (int j = k+1; j < N; j++)
                         A[i][j] -= factor * A[k][j];
                 }
             }
         }
-        printRowEchelonForm(A);
+        printRowEchelonForm(A, B);
+
+        double[] X = new double[N];
+        for (int i = N - 1; i >= 0; i--)
+        {
+            double sum = 0.0;
+            for (int j = i + 1; j < N; j++)
+                sum += A[i][j] * X[j];
+            X[i] = (B[i] - sum) / A[i][i];
+        }
+
+        printSolution(X);
+
     }
-    public void printRowEchelonForm(double[][] A) {
-        int N = A[0].length;
+    public void printRowEchelonForm(double[][] A, double[] B)
+    {
+        int N = B.length;
         System.out.println("\nRow Echelon form : ");
-        for (int i = 0; i < N; i++) {
+        for (int i = 0; i < N; i++)
+        {
             for (int j = 0; j < N; j++)
                 System.out.printf("%.3f ", A[i][j]);
-            System.out.println();
+            System.out.printf("| %.3f\n", B[i]);
         }
+        System.out.println();
+    }
+
+    public void printSolution(double[] X) {
+        int N = X.length;
+        System.out.println("Solution : ");
+        for (int i = 0; i < N; i++)
+            System.out.printf("x%d = %.3f ", i, X[i]);
+        System.out.println();
     }
 }
