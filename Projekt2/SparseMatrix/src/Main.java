@@ -1,17 +1,16 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-public class Main {
-    public static void main(String[] args) {
-        int rows = 3;
-        int columns = 3;
-        MySparseMatrix matrix = new MySparseMatrix(rows, columns);
-        ArrayList<ArrayList<Double>> data = new ArrayList<>();
-        data.addAll(Arrays.asList(new ArrayList<>(Arrays.asList(1.0, 2.0, 3.0)),
-                new ArrayList<>(Arrays.asList(4.0, 5.0, 6.0)), new ArrayList<>(Arrays.asList(7.0, 8.0, 9.0))));
+public class Main
+{
+    public static void main (String[] args)
+    {
+        double[][] A = {
+                {2,1,-1},
+                {-3,-1,2},
+                {-2,1,2}
+        };
+        double[] B = {8,-11,-3};
+        MySparseMatrix_A2 m = new MySparseMatrix_A2(A);
+        m.solveWithPivot(B);
 
-        matrix.initialSet(data);
-        matrix.print();
     }
 }
