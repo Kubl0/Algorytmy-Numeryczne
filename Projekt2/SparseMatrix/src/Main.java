@@ -11,6 +11,7 @@ public class Main
         double[] B = {8,-11,-3};
         MySparseMatrix_A2 m = new MySparseMatrix_A2(A);
         m.solveWithPivot(B);
+        m.solveWithoutPivot(B);
 
     }
 }

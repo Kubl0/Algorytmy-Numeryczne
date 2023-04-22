@@ -65,4 +65,28 @@ public class MySparseMatrix_A2 {
             System.out.printf("x%d = %.3f ", i, X[i]);
         System.out.println();
     }
+
+    public void solveWithoutPivot(double[] B) {
+        int N = B.length;
+        for (int k = 0; k < N-1; k++) {
+            for (int i = k + 1; i < N; i++) {
+                double factor = A[i][k] / A[k][k];
+                B[i] -= factor * B[k];
+                for (int j = k; j < N; j++) {
+                    A[i][j] -= factor * A[k][j];
+                }
+            }
+        }
+        printRowEchelonForm(A, B);
+    
+        double[] X = new double[N];
+        for (int i = N - 1; i >= 0; i--) {
+            double sum = 0.0;
+            for (int j = i + 1; j < N; j++) {
+                sum += A[i][j] * X[j];
+            }
+            X[i] = (B[i] - sum) / A[i][i];
+        }
+        printSolution(X);
+    }
 }
