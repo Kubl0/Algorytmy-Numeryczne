@@ -42,8 +42,4 @@ public class MySparseMatrix {
         matrix.get(row).add(col, value);
     }
 
-
-
-
-    
 }
