@@ -1,36 +1,17 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        int n = 3;
-        MySparseMatrix matrix = new MySparseMatrix(n, n);
-        double[] b = new double[n];
+        int rows = 3;
+        int columns = 3;
+        MySparseMatrix matrix = new MySparseMatrix(rows, columns);
+        ArrayList<ArrayList<Double>> data = new ArrayList<>();
+        data.addAll(Arrays.asList(new ArrayList<>(Arrays.asList(1.0, 2.0, 3.0)),
+                new ArrayList<>(Arrays.asList(4.0, 5.0, 6.0)), new ArrayList<>(Arrays.asList(7.0, 8.0, 9.0))));
 
-        matrix.set(0, 0, 1);
-        matrix.set(0, 1, 2);
-        matrix.set(0, 2, 3);
-        matrix.set(1, 0, 4);
-        matrix.set(1, 1, 5);
-        matrix.set(1, 2, 6);
-        matrix.set(2, 0, 7);
-        matrix.set(2, 1, 8);
-        matrix.set(2, 2, 9);
-
-        b[0] = 1;
-        b[1] = 2;
-        b[2] = 3;
-
-        System.out.println("Macierz A:");
+        matrix.initialSet(data);
         matrix.print();
-
-        System.out.println("Wektor b:");
-        for (int i = 0; i < n; i++) {
-            System.out.println(b[i]);
-        }
-
-        Gauss.gaussElimination(matrix, b);
-
-        System.out.println("Rozwiązanie:");
-        for (int i = 0; i < n; i++) {
-            System.out.println(b[i]);
-        }
     }
 }

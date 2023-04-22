@@ -1,66 +1,49 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class MySparseMatrix {
     private int rows;
     private int columns;
-    private List<List<Double>> data;
+    private ArrayList<ArrayList<Double>> matrix;
 
-    public MySparseMatrix(int rows, int columns) {
+    public MySparseMatrix(int rows, int columns){
         this.rows = rows;
         this.columns = columns;
-        this.data = new ArrayList<>(rows);
+        this.matrix = new ArrayList<>();
         for (int i = 0; i < rows; i++) {
-            data.add(new ArrayList<>(columns));
+            this.matrix.add(new ArrayList<Double>());
         }
     }
 
-    public double get(int row, int col) {
-        if (row >= rows || col >= columns) {
-            throw new IndexOutOfBoundsException("Index out of range");
+    public void initialSet(ArrayList<ArrayList<Double>> data){
+        if(data.size() != rows || data.get(0).size() != columns){
+            throw new IllegalArgumentException("Wrong size of matrix");
         }
-        List<Double> rowData = data.get(row);
-        return col < rowData.size() ? rowData.get(col) : 0.0;
+        this.matrix = data;
     }
 
-    public void set(int row, int col, double value) {
-        if (row >= rows || col >= columns) {
-            throw new IndexOutOfBoundsException("Index out of range");
-        }
-        List<Double> rowData = data.get(row);
-        if (col < rowData.size()) {
-            if (value == 0.0) {
-                rowData.remove(col);
-            } else {
-                rowData.set(col, value);
-            }
-        } else if (value != 0.0) {
-            for (int i = rowData.size(); i < col; i++) {
-                rowData.add(0.0);
-            }
-            rowData.add(value);
-        }
-    }
-
-    public void print() {
+    public void print(){
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                System.out.print(get(i, j) + " ");
+                System.out.print(matrix.get(i).get(j) + " ");
             }
             System.out.println();
         }
     }
 
-    public int size() {
-        int size = 0;
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                if (get(i, j) != 0) {
-                    size++;
-                }
-            }
-        }
-        return size;
+    public int size(){
+        return rows;
     }
+
+    public double get(int row, int col) {
+        return matrix.get(row).get(col);
+    }
+
+    public void set(int row, int col, double value) {
+        matrix.get(row).add(col, value);
+    }
+
+
+
+
     
 }
