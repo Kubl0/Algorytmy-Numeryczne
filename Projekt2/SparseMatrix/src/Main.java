@@ -1,38 +1,22 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 public class Main
 {
     public static void main (String[] args)
     {
-        try {
-            File file = new File("cyferki.csv");
-            Scanner scanner = new Scanner(file);
+        int[] values = new int[3];
+        values[0] = 100;
+        values[1] = 10;
+        values[2] = 10;
 
-            double[] array = new double[9];
-            int i = 0;
-
-            while (scanner.hasNextDouble() && i < 9) {
-                array[i] = scanner.nextDouble();
-                i++;
-            }
-
-            scanner.close();
-
-            double[][] A = {
-                { array[0], array[1], array[2] },
-                { array[3], array[4], array[5] },
-                { array[6], array[7], array[8] }
-            };
-
-            MySparseMatrix_DS2 matrix = new MySparseMatrix_DS2(A);
-            matrix.solveA2(new double[]{0.1, 0.2, 0.3});
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-
+        double[] results = Test.test(values);
+        System.out.println("A1: ");
+        System.out.println("Dense: " + results[0]);
+        System.out.println("Band: " + results[1]);
+        System.out.println("Sparse: " + results[2]);
+        System.out.println("A2: ");
+        System.out.println("Dense: " + results[3]);
+        System.out.println("Band: " + results[4]);
+        //3 decimal places
+        System.out.println("Sparse: " + results[5]);
     }
 }

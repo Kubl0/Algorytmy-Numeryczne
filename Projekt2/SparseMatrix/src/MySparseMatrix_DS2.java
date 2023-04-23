@@ -1,3 +1,4 @@
+
 public class MySparseMatrix_DS2 {
     private final double[][] matrix;
 
@@ -5,7 +6,7 @@ public class MySparseMatrix_DS2 {
         this.matrix = A;
     }
 
-    public void solveA2(double[] BOriginal) {
+    public double[] solveA2(double[] BOriginal) {
         int N = BOriginal.length;
         double[][] A = new double[N][N];
         for (int i = 0; i < N; i++) {
@@ -44,30 +45,9 @@ public class MySparseMatrix_DS2 {
                 }
             }
         }
-        calculateResult(N, A, B);
-
-    }
-    public void printRowEchelonForm(double[][] A, double[] B)
-    {
-        int N = B.length;
-        System.out.println("\nRow Echelon form : ");
-        for (int i = 0; i < N; i++)
-        {
-            for (int j = 0; j < N; j++)
-                System.out.printf("%.3f ", A[i][j]);
-            System.out.printf("| %.3f\n", B[i]);
-        }
-        System.out.println();
+        return calculateResult(N, A, B);
     }
 
-    public double[] printSolution(double[] X) {
-        int N = X.length;
-        double[] solution = new double[N];
-        for (int i = 0; i < N; i++)
-            solution[i] = X[i];
-        return solution;
-    }
-    
 
     public double[] solveA1(double[] BOriginal) {
         int N = BOriginal.length;
@@ -78,6 +58,7 @@ public class MySparseMatrix_DS2 {
         }
         double [] B = new double[N];
         System.arraycopy(BOriginal, 0, B, 0, N);
+
         for (int k = 0; k < N-1; k++) {
             for (int i = k + 1; i < N; i++) {
                 double factor = A[i][k] / A[k][k];
@@ -90,7 +71,6 @@ public class MySparseMatrix_DS2 {
         return calculateResult(N, A, B);
     }
     private double[] calculateResult(int n, double[][] a, double[] b) {
-        // printRowEchelonForm(a, b);
         double[] X = new double[n];
         for (int i = n - 1; i >= 0; i--) {
             double sum = 0.0;
@@ -99,6 +79,6 @@ public class MySparseMatrix_DS2 {
             }
             X[i] = (b[i] - sum) / a[i][i];
         }
-        return printSolution(X);
+        return X;
     }
 }

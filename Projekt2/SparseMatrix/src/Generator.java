@@ -29,8 +29,12 @@ public class Generator {
         double[][] matrixA = new double[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                if (getRandomInt() <= density) {
+                if (j==i){
                     matrixA[i][j] = getRandomDouble();
+                }else{
+                    if (getRandomInt() < density) {
+                        matrixA[i][j] = getRandomDouble();
+                    }
                 }
             }
         }
@@ -53,14 +57,10 @@ public class Generator {
 
     private static double getRandomDouble() {
         Random random = new Random();
-        double randomNumber = random.nextDouble();
-        double randomDouble = random.nextDouble() * 2e16;
-        if (randomNumber < 0.5) {
-            randomDouble = -randomDouble;
-        } else {
-            randomDouble = randomDouble - 1;
-        }
-        return randomDouble;
+        double max = 2^16 - 1;
+        double min = -2^16;
+        double randomNumber = ((random.nextDouble() * (max-min)) + min);
+        return randomNumber/(2^16);
     }
 
     public static double[] multiplyMatrix(double[][] matrixA, double[] matrixX) {
@@ -70,14 +70,15 @@ public class Generator {
                 matrixAX[i] += matrixA[i][j] * matrixX[j];
             }
         }
+
         return matrixAX;
     }
 
-    public static String getAccuracy(double[] matrixAX, double[] matrixB) {
+    public static double getAccuracy(double[] matrixAX, double[] matrixB) {
         double accuracy = 0;
         for (int i = 0; i < matrixAX.length; i++) {
             accuracy += Math.abs(matrixAX[i] - matrixB[i]);
         }
-        return String.format("%.2f", accuracy/matrixAX.length);
+        return (accuracy/matrixAX.length);
     }
 }
