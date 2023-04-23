@@ -88,7 +88,7 @@ public class Test {
         long averageDense = 0;
         long averageSparse = 0;
         //time difference between dense and sparse matrix
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 100; i++) {
             double[][] denseMatrixA = Generator.generateDenseMatrixA(size);
 
             double[] matrixB = Generator.generateMatrixB(size);
@@ -96,14 +96,14 @@ public class Test {
             MySparseMatrix denseMatrixSolver = new MySparseMatrix(denseMatrixA, "DS2");
 
             long startTime1 = System.nanoTime();
-            double[] denseMatrixX = denseMatrixSolver.solveA1(matrixB);
+            double[] denseMatrixX = denseMatrixSolver.solveA2(matrixB);
             long endTime1 = System.nanoTime();
             averageDense += endTime1 - startTime1;
 
             double[][] sparseMatrixA = Generator.DS2generateSparseMatrixA(size, density);
             MySparseMatrix sparseMatrixSolver = new MySparseMatrix(sparseMatrixA, "DS2");
             long startTime2 = System.nanoTime();
-            double[] sparseMatrixX = sparseMatrixSolver.solveA1(matrixB);
+            double[] sparseMatrixX = sparseMatrixSolver.solveA2(matrixB);
             long endTime2 = System.nanoTime();
             averageSparse += endTime2 - startTime2;
         }
@@ -111,5 +111,28 @@ public class Test {
         averageSparse /= 50;
 
         return new long[]{averageDense, averageSparse};
+    }
+
+    public static void TestWithStaticNonZeros(){
+        for (int i = 50; i <= 1000; i+=50){
+            double [][] matrix = Generator.DS2generateSparseMatrixwithStaticNonZerosA(i^2, 10);
+            MySparseMatrix solver = new MySparseMatrix(matrix, "DS2");
+            double[] b = Generator.generateMatrixB(i^2);
+            long startTime2 = System.nanoTime();
+            double[] x = solver.solveA2(b);
+            long endTime2 = System.nanoTime();
+            System.out.println(i + ";" + (endTime2 - startTime2));
+        }
+
+        for (int i = 50; i <= 1000; i+=50){
+            double [][] matrix = Generator.DS2generateSparseMatrixwithStaticNonZerosA(i^2, 10);
+            MySparseMatrix solver = new MySparseMatrix(matrix, "DS2");
+            double[] b = Generator.generateMatrixB(i^2);
+            long startTime2 = System.nanoTime();
+            double[] x = solver.solveA1(b);
+            long endTime2 = System.nanoTime();
+            System.out.println(i + ";" + (endTime2 - startTime2));
+        }
+
     }
 }

@@ -41,6 +41,27 @@ public class Generator {
         return matrixA;
     }
 
+    public static double[][] DS2generateSparseMatrixwithStaticNonZerosA(int size, int numberOfElements) {
+        double[][] matrixA = new double[size][size];
+        //insert at diagonal
+        for (int i = 0; i < size; i++) {
+            matrixA[i][i] = getRandomDouble();
+        }
+
+        for (int i=0; i<size;i++){
+            int count = 0;
+            for( int j=0; j<size; j++){
+                if (matrixA[i][j] == 0 && count < numberOfElements-1){
+                    matrixA[i][j] = getRandomDouble();
+                    count++;
+                }
+            }
+        }
+
+        return matrixA;
+    }
+
+
     public static double[][] DS3generateSparseMatrixA (int size, int density) {
         double[][] matrixA = new double[size][size];
         for (int i = 0; i < size; i++) {
