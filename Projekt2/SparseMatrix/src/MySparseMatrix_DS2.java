@@ -4,6 +4,7 @@ public class MySparseMatrix_DS2 {
     public MySparseMatrix_DS2(double[][] A) {
         this.matrix = A;
     }
+
     public void solveA2(double[] BOriginal) {
         int N = BOriginal.length;
         double[][] A = new double[N][N];
@@ -59,15 +60,16 @@ public class MySparseMatrix_DS2 {
         System.out.println();
     }
 
-    public void printSolution(double[] X) {
+    public double[] printSolution(double[] X) {
         int N = X.length;
-        System.out.println("Solution : ");
+        double[] solution = new double[N];
         for (int i = 0; i < N; i++)
-            System.out.printf("x%d = %.3f ", i, X[i]);
-        System.out.println();
+            solution[i] = X[i];
+        return solution;
     }
+    
 
-    public void solveA1(double[] BOriginal) {
+    public double[] solveA1(double[] BOriginal) {
         int N = BOriginal.length;
 
         double[][] A = new double[N][N];
@@ -85,10 +87,10 @@ public class MySparseMatrix_DS2 {
                 }
             }
         }
-        calculateResult(N, A, B);
+        return calculateResult(N, A, B);
     }
-    private void calculateResult(int n, double[][] a, double[] b) {
-        printRowEchelonForm(a, b);
+    private double[] calculateResult(int n, double[][] a, double[] b) {
+        // printRowEchelonForm(a, b);
         double[] X = new double[n];
         for (int i = n - 1; i >= 0; i--) {
             double sum = 0.0;
@@ -97,6 +99,6 @@ public class MySparseMatrix_DS2 {
             }
             X[i] = (b[i] - sum) / a[i][i];
         }
-        printSolution(X);
+        return printSolution(X);
     }
 }
