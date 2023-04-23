@@ -30,14 +30,6 @@ public class Test {
         double[] denseMatrixAX1 = Generator.multiplyMatrix(denseMatrixA, denseMatrixX1);
         double[] bandMatrixAX1 = Generator.multiplyMatrix(bandMatrixA, bandMatrixX1);
         double[] sparseMatrixAX1 = Generator.multiplyMatrix(sparseMatrixA, sparseMatrixX1);
-//        System.out.println("A1:");
-//        System.out.println("Średni błąd macierzy gęstych: " + Generator.getAccuracy(denseMatrixAX, matrixB));
-//        System.out.println("Średni błąd macierzy wstęgoe: " + Generator.getAccuracy(bandMatrixAX, matrixB));
-//        System.out.println("Średni błąd macierzy rzadkic: " + Generator.getAccuracy(sparseMatrixAX, matrixB));
-//        System.out.println("A2:");
-//        System.out.println("Średni błąd macierzy gęstych: " + Generator.getAccuracy(denseMatrixAX1, matrixB));
-//        System.out.println("Średni błąd macierzy wstęgoe: " + Generator.getAccuracy(bandMatrixAX1, matrixB));
-//        System.out.println("Średni błąd macierzy rzadkic: " + Generator.getAccuracy(sparseMatrixAX1, matrixB));
         double[] result = new double[6];
         result[0] = Generator.getAccuracy(denseMatrixAX, matrixB);
         result[1] = Generator.getAccuracy(bandMatrixAX, matrixB);
