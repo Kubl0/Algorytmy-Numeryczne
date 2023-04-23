@@ -80,4 +80,36 @@ public class Test {
         result[5] = Generator.getAccuracy(sparseMatrixAX1, matrixB);
         return result;
     }
+
+    public static long[] testTimeDifference(){
+        int size = 100;
+        int density = 30;
+
+        long averageDense = 0;
+        long averageSparse = 0;
+        //time difference between dense and sparse matrix
+        for (int i = 0; i < 50; i++) {
+            double[][] denseMatrixA = Generator.generateDenseMatrixA(size);
+
+            double[] matrixB = Generator.generateMatrixB(size);
+
+            MySparseMatrix denseMatrixSolver = new MySparseMatrix(denseMatrixA, "DS2");
+
+            long startTime1 = System.nanoTime();
+            double[] denseMatrixX = denseMatrixSolver.solveA1(matrixB);
+            long endTime1 = System.nanoTime();
+            averageDense += endTime1 - startTime1;
+
+            double[][] sparseMatrixA = Generator.DS2generateSparseMatrixA(size, density);
+            MySparseMatrix sparseMatrixSolver = new MySparseMatrix(sparseMatrixA, "DS2");
+            long startTime2 = System.nanoTime();
+            double[] sparseMatrixX = sparseMatrixSolver.solveA1(matrixB);
+            long endTime2 = System.nanoTime();
+            averageSparse += endTime2 - startTime2;
+        }
+        averageDense /= 50;
+        averageSparse /= 50;
+
+        return new long[]{averageDense, averageSparse};
+    }
 }
