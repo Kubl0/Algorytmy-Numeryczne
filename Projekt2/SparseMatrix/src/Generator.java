@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class Generator {
 
-    public static double[][] DS2generateDenseMatrixA (int size) {
+    public static double[][] generateDenseMatrixA (int size) {
         double[][] matrixA = new double[size][size];
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -41,6 +41,34 @@ public class Generator {
         return matrixA;
     }
 
+    public static double[][] DS3generateSparseMatrixA (int size, int density) {
+        double[][] matrixA = new double[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (j==i){
+                    matrixA[i][j] = getRandomDouble();
+                }else{
+                    if (getRandomInt() < density) {
+                        matrixA[j][i] = getRandomDouble();
+                    }
+                }
+            }
+        }
+        return matrixA;
+    }
+
+    public static double[][] DS3generateBandMatrixA (int size, int band) {
+        double[][] matrixA = new double[size][size];
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (Math.abs(i - j) <= band) {
+                    matrixA[j][i] = getRandomDouble();
+                }
+            }
+        }
+        return matrixA;
+    }
+
     private static int getRandomInt() {
         Random random = new Random();
         return random.nextInt(100);
@@ -63,7 +91,7 @@ public class Generator {
         return randomNumber/(2^16);
     }
 
-    public static double[] multiplyMatrix(double[][] matrixA, double[] matrixX) {
+    public static double[] multiplyMatrixDS2(double[][] matrixA, double[] matrixX) {
         double[] matrixAX = new double[matrixA.length];
         for (int i = 0; i < matrixA.length; i++) {
             for (int j = 0; j < matrixA.length; j++) {
@@ -71,6 +99,15 @@ public class Generator {
             }
         }
 
+        return matrixAX;
+    }
+    public static double[] multiplyMatrixDS3(double[][] matrixA, double[] matrixX) {
+        double[] matrixAX = new double[matrixA.length];
+        for (int i = 0; i < matrixA.length; i++) {
+            for (int j = 0; j < matrixA.length; j++) {
+                matrixAX[i] += matrixA[j][i] * matrixX[j];
+            }
+        }
         return matrixAX;
     }
 
@@ -81,4 +118,5 @@ public class Generator {
         }
         return (accuracy/matrixAX.length);
     }
+
 }

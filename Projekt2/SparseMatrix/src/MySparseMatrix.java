@@ -1,9 +1,20 @@
+import java.util.Objects;
 
-public class MySparseMatrix_DS2 {
+public class MySparseMatrix {
     private final double[][] matrix;
 
-    public MySparseMatrix_DS2(double[][] A) {
-        this.matrix = A;
+    public MySparseMatrix(double[][] A, String type) {
+        if (Objects.equals(type, "DS2"))
+            this.matrix = A;
+        else{
+            int N = A.length;
+            this.matrix = new double[N][N];
+            for (int j = 0; j < N; j++) {
+                for (int i = 0; i < N; i++) {
+                    this.matrix[i][j] = A[j][i];
+                }
+            }
+        }
     }
 
     public double[] solveA2(double[] BOriginal) {
@@ -12,6 +23,7 @@ public class MySparseMatrix_DS2 {
         for (int i = 0; i < N; i++) {
             System.arraycopy(matrix[i], 0, A[i], 0, N);
         }
+
         double [] B = new double[N];
         System.arraycopy(BOriginal, 0, B, 0, N);
 

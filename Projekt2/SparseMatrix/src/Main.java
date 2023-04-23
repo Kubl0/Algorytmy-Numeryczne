@@ -5,24 +5,24 @@ import java.io.PrintWriter;
 public class Main
 {
     public static void main (String[] args) throws IOException {
-        FileWriter fileWriter = new FileWriter("results.csv");
-        PrintWriter printWriter = new PrintWriter(fileWriter);
+        FileWriter fileWriterDS2 = new FileWriter("resultsDS2.csv");
+        PrintWriter printWriterDS2 = new PrintWriter(fileWriterDS2);
 
         int[] values = new int[3];
         values[0] = 100;
-        values[1] = 10;
+        values[1] = 1;
         values[2] = 10;
 
-
-        printWriter.println("DenseMatrixA1;BandMatrixA1;SparseMatrixA1;DenseMatrixA2;BandMatrixA2;SparseMatrixA2");
-        int testSize = 10;
+        printWriterDS2.println("DenseMatrixA1;BandMatrixA1;SparseMatrixA1;DenseMatrixA2;BandMatrixA2;SparseMatrixA2");
+        int testSize = 100;
         double[] errors = new double[6];
         for (int i = 0; i < testSize; i++) {
-            double[] results = Test.test(values);
+            //Choose DS2 or DS3
+            double[] results = Test.testDS3(values);
             for (int j = 0; j < 6; j++) {
                 errors[j] += results[j];
             }
-            printWriter.println(results[0] + ";" + results[1] + ";" + results[2] + ";" + results[3] + ";" + results[4] + ";" + results[5]);
+            printWriterDS2.println(results[0] + ";" + results[1] + ";" + results[2] + ";" + results[3] + ";" + results[4] + ";" + results[5]);
         }
         for (int i = 0; i < 6; i++) {
             errors[i] /= testSize;
@@ -34,6 +34,7 @@ public class Main
         System.out.println("BandMatrixA2: " + errors[4]);
         System.out.println("SparseMatrixA2: " + errors[5]);
 
-        printWriter.close();
+        printWriterDS2.close();
+
     }
 }
