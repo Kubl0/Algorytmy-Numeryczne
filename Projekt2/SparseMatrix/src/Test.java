@@ -116,7 +116,7 @@ public class Test {
     public static void TestWithStaticNonZeros(){
         long averageSparseA2 = 0;
         for (int i = 50; i <= 1000; i+=50){
-            for (int j = 10; j <= 100; j+=1){
+            for (int j = 10; j <= 20; j+=1){
                 double [][] matrix = Generator.DS2generateSparseMatrixwithStaticNonZerosA(i^2, 10);
                 MySparseMatrix solver = new MySparseMatrix(matrix, "DS2");
                 double[] b = Generator.generateMatrixB(i^2);
@@ -133,7 +133,7 @@ public class Test {
         long averageSparseA1 = 0;
 
         for (int i = 50; i <= 1000; i+=50){
-            for (int j = 10; j <= 100; j+=1){
+            for (int j = 10; j <= 20; j+=1){
                 double [][] matrix = Generator.DS2generateSparseMatrixwithStaticNonZerosA(i^2, 10);
                 MySparseMatrix solver = new MySparseMatrix(matrix, "DS2");
                 double[] b = Generator.generateMatrixB(i^2);
