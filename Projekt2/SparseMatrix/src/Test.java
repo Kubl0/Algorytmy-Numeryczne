@@ -114,25 +114,36 @@ public class Test {
     }
 
     public static void TestWithStaticNonZeros(){
+        long averageSparseA2 = 0;
         for (int i = 50; i <= 1000; i+=50){
-            double [][] matrix = Generator.DS2generateSparseMatrixwithStaticNonZerosA(i^2, 10);
-            MySparseMatrix solver = new MySparseMatrix(matrix, "DS2");
-            double[] b = Generator.generateMatrixB(i^2);
-            long startTime2 = System.nanoTime();
-            double[] x = solver.solveA2(b);
-            long endTime2 = System.nanoTime();
-            System.out.println(i + ";" + (endTime2 - startTime2));
+            for (int j = 10; j <= 100; j+=1){
+                double [][] matrix = Generator.DS2generateSparseMatrixwithStaticNonZerosA(i^2, 10);
+                MySparseMatrix solver = new MySparseMatrix(matrix, "DS2");
+                double[] b = Generator.generateMatrixB(i^2);
+                long startTime2 = System.nanoTime();
+                double[] x = solver.solveA2(b);
+                long endTime2 = System.nanoTime();
+                // System.out.println(i + ";" + (endTime2 - startTime2));
+                averageSparseA2 += endTime2 - startTime2;
+            }
+            System.out.println("Average A2: " + averageSparseA2/20);
         }
+        
+
+        long averageSparseA1 = 0;
 
         for (int i = 50; i <= 1000; i+=50){
-            double [][] matrix = Generator.DS2generateSparseMatrixwithStaticNonZerosA(i^2, 10);
-            MySparseMatrix solver = new MySparseMatrix(matrix, "DS2");
-            double[] b = Generator.generateMatrixB(i^2);
-            long startTime2 = System.nanoTime();
-            double[] x = solver.solveA1(b);
-            long endTime2 = System.nanoTime();
-            System.out.println(i + ";" + (endTime2 - startTime2));
+            for (int j = 10; j <= 100; j+=1){
+                double [][] matrix = Generator.DS2generateSparseMatrixwithStaticNonZerosA(i^2, 10);
+                MySparseMatrix solver = new MySparseMatrix(matrix, "DS2");
+                double[] b = Generator.generateMatrixB(i^2);
+                long startTime2 = System.nanoTime();
+                double[] x = solver.solveA1(b);
+                long endTime2 = System.nanoTime();
+                // System.out.println(i + ";" + (endTime2 - startTime2));
+                averageSparseA1 += endTime2 - startTime2;
+            }
+            System.out.println("Average A1: " + averageSparseA1/20);
         }
-
     }
 }

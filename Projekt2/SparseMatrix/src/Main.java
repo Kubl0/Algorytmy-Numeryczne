@@ -9,7 +9,7 @@ public class Main
         //compareResultsDependingOnSize();
         //compareResultsDependingOnBandWidth();
         //TestTime();
-        // Test.TestWithStaticNonZeros();
+        Test.TestWithStaticNonZeros();
     }
 
     public static void compareResultsDependingOnSize() throws IOException {
