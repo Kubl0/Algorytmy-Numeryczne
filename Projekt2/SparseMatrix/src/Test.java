@@ -4,7 +4,6 @@ public class Test {
     public static void testWithLibrary() {
         long averageTime1 = 0;
         long averageTime2 = 0;
-        //time difference between dense and sparse matrix
         for (int i = 0; i < 1000; i++) {
             double[][] denseMatrixA = Generator.generateDenseMatrixA(100);
             double[] matrixB = Generator.generateMatrixB(100);
@@ -14,7 +13,6 @@ public class Test {
             long endTime1 = System.nanoTime();
             averageTime1 += endTime1 - startTime1;
 
-            //convert to SimpleMatrix
             SimpleMatrix A = new SimpleMatrix(100,100);
             for(int j = 0; j < 100; j++){
                 for(int k = 0; k < 100; k++){
@@ -119,7 +117,6 @@ public class Test {
 
         long averageDense = 0;
         long averageSparse = 0;
-        //time difference between dense and sparse matrix
         for (int i = 0; i < 100; i++) {
             double[][] denseMatrixA = Generator.generateDenseMatrixA(size);
 
