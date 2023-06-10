@@ -2,6 +2,7 @@ package Projekt3;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.stream.IntStream;
 
 import Projekt3.Methods.*;
 
@@ -16,6 +17,7 @@ public class Test {
         double[] CSI1 = new double[1000];
         double[] Simpson1 = new double[1000];
         double[] Trapezoidal1 = new double[1000];
+        double[] Library1 = new double[1000];
 
         for (int i = 0; i < 1000; i++) {
             double a = x[i];
@@ -33,11 +35,14 @@ public class Test {
             CSI1[i] = CSI.integrateCSI(tabx, taby);
             Simpson1[i] = Simpson.integrateSimpson(tabx, taby);
             Trapezoidal1[i] = Trapezoidal.integrateTrapezoidal(tabx, taby);
+
+            Library1[i] = calculateLibraryIntegral(tabx, taby);
         }
 
         double[] CSI2 = new double[1000];
         double[] Simpson2 = new double[1000];
         double[] Trapezoidal2 = new double[1000];
+        double[] Library2 = new double[1000];
 
         for (int i = 0; i < 1000; i++) {
             double a = x[i];
@@ -55,12 +60,14 @@ public class Test {
             CSI2[i] = CSI.integrateCSI(tabx, taby);
             Simpson2[i] = Simpson.integrateSimpson(tabx, taby);
             Trapezoidal2[i] = Trapezoidal.integrateTrapezoidal(tabx, taby);
-            
+
+            Library2[i] = calculateLibraryIntegral(tabx, taby);
         }
 
         double[] CSI3 = new double[1000];
         double[] Simpson3 = new double[1000];
         double[] Trapezoidal3 = new double[1000];
+        double[] Library3 = new double[1000]; 
 
         for (int i = 0; i < 1000; i++) {
             double a = x[i];
@@ -78,19 +85,24 @@ public class Test {
             CSI3[i] = CSI.integrateCSI(tabx, taby);
             Simpson3[i] = Simpson.integrateSimpson(tabx, taby);
             Trapezoidal3[i] = Trapezoidal.integrateTrapezoidal(tabx, taby);
+
+            Library3[i] = calculateLibraryIntegral(tabx, taby);
         }
 
         saveToFile("CSI1.txt", x, CSI1);
         saveToFile("Simpson1.txt", x, Simpson1);
         saveToFile("Trapezoidal1.txt", x, Trapezoidal1);
+        saveToFile("Library1.txt", x, Library1);
 
         saveToFile("CSI2.txt", x, CSI2);
         saveToFile("Simpson2.txt", x, Simpson2);
         saveToFile("Trapezoidal2.txt", x, Trapezoidal2);
+        saveToFile("Library2.txt", x, Library2);
 
         saveToFile("CSI3.txt", x, CSI3);
         saveToFile("Simpson3.txt", x, Simpson3);
         saveToFile("Trapezoidal3.txt", x, Trapezoidal3);
+        saveToFile("Library3.txt", x, Library3);
     }
 
     public static void saveToFile(String filename, double[] x, double[] y) {
@@ -115,15 +127,13 @@ public class Test {
         return Math.exp(x);
     }
 
-    public static double calculateExactIntegralSin3x(double a, double b) {
-        return (-Math.cos(Math.cos(b)) * Math.sin(b) + Math.cos(Math.cos(a)) * Math.sin(a));
-    }
+    public static double calculateLibraryIntegral(double[] x, double[] y) {
+        double width = 0.01;
 
-    public static double calculateExactIntegralCosxDiv5(double a, double b) {
-        return (5 * (Math.sin(b) - Math.sin(a)));
-    }
+        double integral = IntStream.range(0, x.length - 1)
+                .mapToDouble(i -> (y[i] + y[i + 1]) * 0.5 * width)
+                .sum();
 
-    public static double calculateExactIntegralEx(double a, double b) {
-        return (Math.exp(b) - Math.exp(a));
+        return integral;
     }
 }
