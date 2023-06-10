@@ -1,5 +1,7 @@
 package Projekt3;
 
+import Projekt3.Methods.*;
+
 public class Test {
 
     public static void main(String[] args) {
@@ -8,12 +10,12 @@ public class Test {
         double[] y2 = calculateCosxDiv5(x);
         double[] y3 = calculateEx(x);
 
-        double trapezoidalResult1 = Main.integrateTrapezoidal(x, y1);
-        double simpsonResult1 = Main.integrateSimpson(x, y1);
-        double trapezoidalResult2 = Main.integrateTrapezoidal(x, y2);
-        double simpsonResult2 = Main.integrateSimpson(x, y2);
-        double trapezoidalResult3 = Main.integrateTrapezoidal(x, y3);
-        double simpsonResult3 = Main.integrateSimpson(x, y3);
+        double trapezoidalResult1 = Trapezoidal.integrateTrapezoidal(x, y1);
+        double simpsonResult1 = Simpson.integrateSimpson(x, y1);
+        double trapezoidalResult2 = Trapezoidal.integrateTrapezoidal(x, y2);
+        double simpsonResult2 = Simpson.integrateSimpson(x, y2);
+        double trapezoidalResult3 = Trapezoidal.integrateTrapezoidal(x, y3);
+        double simpsonResult3 = Simpson.integrateSimpson(x, y3);
 
         System.out.println("Całka sin(3x) metodą trapezów: " + trapezoidalResult1);
         System.out.println("Całka sin(3x) metodą Simpsona: " + simpsonResult1);
