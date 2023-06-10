@@ -1,63 +1,118 @@
 package Projekt3;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 import Projekt3.Methods.*;
 
 public class Test {
 
     public static void main(String[] args) {
-        double[] x = {0, 1, 2, 3, 4, 5, 6, 7, 8};
-        double[] y1 = calculateSin3x(x);
-        double[] y2 = calculateCosxDiv5(x);
-        double[] y3 = calculateEx(x);
+        double[] x = new double[1000];
+        for (int i = 1; i <= 1000; i++) {
+            x[i-1] = i * 0.1;
+        }
 
-        double trapezoidalResult1 = Trapezoidal.integrateTrapezoidal(x, y1);
-        double simpsonResult1 = Simpson.integrateSimpson(x, y1);
-        double trapezoidalResult2 = Trapezoidal.integrateTrapezoidal(x, y2);
-        double simpsonResult2 = Simpson.integrateSimpson(x, y2);
-        double trapezoidalResult3 = Trapezoidal.integrateTrapezoidal(x, y3);
-        double simpsonResult3 = Simpson.integrateSimpson(x, y3);
+        double[] CSI1 = new double[1000];
+        double[] Simpson1 = new double[1000];
+        double[] Trapezoidal1 = new double[1000];
 
-        System.out.println("Całka sin(3x) metodą trapezów: " + trapezoidalResult1);
-        System.out.println("Całka sin(3x) metodą Simpsona: " + simpsonResult1);
-        System.out.println("Całka cos(x)/5 metodą trapezów: " + trapezoidalResult2);
-        System.out.println("Całka cos(x)/5 metodą Simpsona: " + simpsonResult2);
-        System.out.println("Całka e^x metodą trapezów: " + trapezoidalResult3);
-        System.out.println("Całka e^x metodą Simpsona: " + simpsonResult3);
+        for (int i = 0; i < 1000; i++) {
+            double a = x[i];
 
-        double exactIntegral1 = calculateExactIntegralSin3x(0, 8);
-        double exactIntegral2 = calculateExactIntegralCosxDiv5(0, 8);
-        double exactIntegral3 = calculateExactIntegralEx(0, 8);
+            double tabx[] = new double[10];
+            for (int j = 0; j < 10; j++) {
+                tabx[j] = a + j * 0.01;
+            }
 
-        System.out.println("Dokładna całka sin(3x): " + exactIntegral1);
-        System.out.println("Dokładna całka cos(x)/5: " + exactIntegral2);
-        System.out.println("Dokładna całka e^x: " + exactIntegral3);
+            double taby[] = new double[10];
+            for (int j = 0; j < 10; j++) {
+                taby[j] = calculateSin3x(tabx[j]);
+            }
+
+            CSI1[i] = CSI.integrateCSI(tabx, taby);
+            Simpson1[i] = Simpson.integrateSimpson(tabx, taby);
+            Trapezoidal1[i] = Trapezoidal.integrateTrapezoidal(tabx, taby);
+        }
+
+        double[] CSI2 = new double[1000];
+        double[] Simpson2 = new double[1000];
+        double[] Trapezoidal2 = new double[1000];
+
+        for (int i = 0; i < 1000; i++) {
+            double a = x[i];
+
+            double tabx[] = new double[10];
+            for (int j = 0; j < 10; j++) {
+                tabx[j] = a + j * 0.01;
+            }
+
+            double taby[] = new double[10];
+            for (int j = 0; j < 10; j++) {
+                taby[j] = calculateCosxDiv5(tabx[j]);
+            }
+
+            CSI2[i] = CSI.integrateCSI(tabx, taby);
+            Simpson2[i] = Simpson.integrateSimpson(tabx, taby);
+            Trapezoidal2[i] = Trapezoidal.integrateTrapezoidal(tabx, taby);
+            
+        }
+
+        double[] CSI3 = new double[1000];
+        double[] Simpson3 = new double[1000];
+        double[] Trapezoidal3 = new double[1000];
+
+        for (int i = 0; i < 1000; i++) {
+            double a = x[i];
+
+            double tabx[] = new double[10];
+            for (int j = 0; j < 10; j++) {
+                tabx[j] = a + j * 0.01;
+            }
+
+            double taby[] = new double[10];
+            for (int j = 0; j < 10; j++) {
+                taby[j] = calculateEx(tabx[j]);
+            }
+
+            CSI3[i] = CSI.integrateCSI(tabx, taby);
+            Simpson3[i] = Simpson.integrateSimpson(tabx, taby);
+            Trapezoidal3[i] = Trapezoidal.integrateTrapezoidal(tabx, taby);
+        }
+
+        saveToFile("CSI1.txt", x, CSI1);
+        saveToFile("Simpson1.txt", x, Simpson1);
+        saveToFile("Trapezoidal1.txt", x, Trapezoidal1);
+
+        saveToFile("CSI2.txt", x, CSI2);
+        saveToFile("Simpson2.txt", x, Simpson2);
+        saveToFile("Trapezoidal2.txt", x, Trapezoidal2);
+
+        saveToFile("CSI3.txt", x, CSI3);
+        saveToFile("Simpson3.txt", x, Simpson3);
+        saveToFile("Trapezoidal3.txt", x, Trapezoidal3);
     }
 
-    public static double[] calculateSin3x(double[] x) {
-        int n = x.length;
-        double[] y = new double[n];
-        for (int i = 0; i < n; i++) {
-            y[i] = Math.sin(3 * x[i]);
+    public static void saveToFile(String filename, double[] x, double[] y) {
+        try (FileWriter writer = new FileWriter(filename)) {
+            for (int i = 0; i < x.length; i++) {
+                writer.write(x[i] + " " + y[i] + "\n");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return y;
     }
 
-    public static double[] calculateCosxDiv5(double[] x) {
-        int n = x.length;
-        double[] y = new double[n];
-        for (int i = 0; i < n; i++) {
-            y[i] = Math.cos(x[i]) / 5;
-        }
-        return y;
+    public static double calculateSin3x(double x) {
+        return Math.sin(3 * x);
     }
 
-    public static double[] calculateEx(double[] x) {
-        int n = x.length;
-        double[] y = new double[n];
-        for (int i = 0; i < n; i++) {
-            y[i] = Math.exp(x[i]);
-        }
-        return y;
+    public static double calculateCosxDiv5(double x) {
+        return Math.cos(x) / 5;
+    }
+
+    public static double calculateEx(double x) {
+        return Math.exp(x);
     }
 
     public static double calculateExactIntegralSin3x(double a, double b) {
