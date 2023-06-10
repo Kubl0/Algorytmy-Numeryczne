@@ -12,6 +12,6 @@ public class Main {
 
         System.out.println("Całka metodą Simpsona: " + Simpson.integrateSimpson(x, y));
 
-        System.out.println("Całka CSI: " + CSI.integrateCSI(x, y));
+        System.out.println("Całka metodą CSI: " + CSI.integrateCSI(x, y));
     }
 }
