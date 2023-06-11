@@ -1,3 +1,4 @@
+import numpy as np
 import matplotlib.pyplot as plt
 
 def read_from_file(filename):
@@ -38,14 +39,18 @@ for i in range(3):
         simpson.append(abs(y_simpson_intervals[j][0] - y_library_intervals[j][0]))
         trapezoidal.append(abs(y_trapezoidal_intervals[j][0] - y_library_intervals[j][0]))
 
-    x_intervals = range(1, 11)
+    x_intervals = np.arange(1, 11)  
+    width = 0.2  
+
     plt.figure()
-    plt.bar(x_intervals, csi, label='CSI')
-    plt.bar(x_intervals, simpson, label='Simpson')
-    plt.bar(x_intervals, trapezoidal, label='Trapezoidal')
+    plt.bar(x_intervals - width, csi, width=width, label='CSI')
+    plt.bar(x_intervals, simpson, width=width, label='Simpson')
+    plt.bar(x_intervals + width, trapezoidal, width=width, label='Trapezoidal')
     plt.xlabel('Interval')
     plt.ylabel('Difference')
     plt.title('Function ' + str(i+1))
+    plt.tight_layout()
+    # plt.yscale('symlog')
     plt.legend()
     plt.savefig('function' + str(i+1) + '_plot.png')
     plt.show()
