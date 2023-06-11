@@ -11,7 +11,7 @@ public class Test {
     public static void main(String[] args) {
         double[] x = new double[1000];
         for (int i = 1; i <= 1000; i++) {
-            x[i-1] = i * 0.1;
+            x[i-1] = i * 0.01;
         }
 
         double[] CSI1 = new double[1000];
@@ -24,7 +24,7 @@ public class Test {
 
             double tabx[] = new double[10];
             for (int j = 0; j < 10; j++) {
-                tabx[j] = a + j * 0.01;
+                tabx[j] = a + j * 0.001;
             }
 
             double taby[] = new double[10];
@@ -49,7 +49,7 @@ public class Test {
 
             double tabx[] = new double[10];
             for (int j = 0; j < 10; j++) {
-                tabx[j] = a + j * 0.01;
+                tabx[j] = a + j * 0.001;
             }
 
             double taby[] = new double[10];
@@ -74,7 +74,7 @@ public class Test {
 
             double tabx[] = new double[10];
             for (int j = 0; j < 10; j++) {
-                tabx[j] = a + j * 0.01;
+                tabx[j] = a + j * 0.001;
             }
 
             double taby[] = new double[10];
