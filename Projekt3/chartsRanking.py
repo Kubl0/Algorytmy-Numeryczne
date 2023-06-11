@@ -40,9 +40,9 @@ for i in range(3):
 
     x_intervals = range(1, 11)
     plt.figure()
-    plt.plot(x_intervals, csi, label='CSI')
-    plt.plot(x_intervals, simpson, label='Simpson')
-    plt.plot(x_intervals, trapezoidal, label='Trapezoidal')
+    plt.bar(x_intervals, csi, label='CSI')
+    plt.bar(x_intervals, simpson, label='Simpson')
+    plt.bar(x_intervals, trapezoidal, label='Trapezoidal')
     plt.xlabel('Interval')
     plt.ylabel('Difference')
     plt.title('Function ' + str(i+1))
