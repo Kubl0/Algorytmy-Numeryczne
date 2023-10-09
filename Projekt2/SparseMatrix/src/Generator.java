@@ -43,7 +43,6 @@ public class Generator {
 
     public static double[][] DS2generateSparseMatrixwithStaticNonZerosA(int size, int numberOfElements) {
         double[][] matrixA = new double[size][size];
-        //insert at diagonal
         for (int i = 0; i < size; i++) {
             matrixA[i][i] = getRandomDouble();
         }

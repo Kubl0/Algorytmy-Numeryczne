@@ -1,5 +1,35 @@
+import org.ejml.simple.SimpleMatrix;
 public class Test {
-    
+
+    public static void testWithLibrary() {
+        long averageTime1 = 0;
+        long averageTime2 = 0;
+        for (int i = 0; i < 1000; i++) {
+            double[][] denseMatrixA = Generator.generateDenseMatrixA(100);
+            double[] matrixB = Generator.generateMatrixB(100);
+            MySparseMatrix denseMatrixSolver = new MySparseMatrix(denseMatrixA, "DS2");
+            long startTime1 = System.nanoTime();
+            double[] denseMatrixX = denseMatrixSolver.solveA2(matrixB);
+            long endTime1 = System.nanoTime();
+            averageTime1 += endTime1 - startTime1;
+
+            SimpleMatrix A = new SimpleMatrix(100,100);
+            for(int j = 0; j < 100; j++){
+                for(int k = 0; k < 100; k++){
+                    A.set(j, k, denseMatrixA[j][k]);
+                }
+            }
+            SimpleMatrix b = new SimpleMatrix(100,1);
+            b.setColumn(0, 0, matrixB);
+            long startTime2 = System.nanoTime();
+            SimpleMatrix x = A.solve(b);
+            long endTime2 = System.nanoTime();
+            averageTime2 += endTime2 - startTime2;
+        }
+        System.out.println("Average for our method: " + averageTime1 / 1000);
+        System.out.println("Average for library method: " + averageTime2 / 1000);
+    }
+
     public static double[] testDS2(int[] args) {
         int size = args[0];
         int band = args[1];
@@ -87,7 +117,6 @@ public class Test {
 
         long averageDense = 0;
         long averageSparse = 0;
-        //time difference between dense and sparse matrix
         for (int i = 0; i < 100; i++) {
             double[][] denseMatrixA = Generator.generateDenseMatrixA(size);
 

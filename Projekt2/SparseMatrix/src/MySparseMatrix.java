@@ -63,16 +63,20 @@ public class MySparseMatrix {
 
     public double[] solveA1(double[] BOriginal) {
         int N = BOriginal.length;
-
+    
         double[][] A = new double[N][N];
         for (int i = 0; i < N; i++) {
             System.arraycopy(matrix[i], 0, A[i], 0, N);
         }
         double [] B = new double[N];
         System.arraycopy(BOriginal, 0, B, 0, N);
-
+    
+        System.out.println("Przed kopiowaniem:");
+        System.out.println("Rozmiar macierzy A: " + A.length + "x" + A[0].length);
+        System.out.println("Rozmiar tablicy B: " + B.length);
+    
         for (int k = 0; k < N-1; k++) {
-            for (int i = k + 1; i < N; i++) {
+            for (int i = k + 1; i < N && i < A.length; i++) {
                 double factor = A[i][k] / A[k][k];
                 B[i] -= factor * B[k];
                 for (int j = k; j < N; j++) {
@@ -80,8 +84,16 @@ public class MySparseMatrix {
                 }
             }
         }
+    
+        System.out.println("Po kopiowaniu:");
+        System.out.println("Rozmiar macierzy A: " + A.length + "x" + A[0].length);
+        System.out.println("Rozmiar tablicy B: " + B.length);
+    
         return calculateResult(N, A, B);
     }
+    
+    
+    
     private double[] calculateResult(int n, double[][] a, double[] b) {
         double[] X = new double[n];
         for (int i = n - 1; i >= 0; i--) {

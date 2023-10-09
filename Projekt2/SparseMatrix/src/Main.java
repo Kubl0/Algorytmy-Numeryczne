@@ -5,11 +5,12 @@ import java.io.PrintWriter;
 public class Main
 {
     public static void main (String[] args) throws IOException {
-        // compareMethods();
+        //compareMethods();
         //compareResultsDependingOnSize();
         //compareResultsDependingOnBandWidth();
         //TestTime();
-        Test.TestWithStaticNonZeros();
+        //Test.TestWithStaticNonZeros();
+        Test.testWithLibrary();
     }
 
     public static void compareResultsDependingOnSize() throws IOException {
